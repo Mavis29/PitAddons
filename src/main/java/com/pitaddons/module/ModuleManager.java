@@ -1,6 +1,5 @@
 package com.pitaddons.module;
 
-import com.pitaddons.module.modules.ArrowHitDetector;
 import com.pitaddons.module.modules.RingOutline;
 
 import java.util.ArrayList;
