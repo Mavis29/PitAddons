@@ -45,7 +45,7 @@ public class ClickGui extends GuiScreen {
         categoryComponents = GuiManager.getCategoryComponents();
         if(categoryComponents.isEmpty()) {
             for(Category category : Category.values()) {
-                CategoryComponent component = new CategoryComponent(sr);
+                CategoryComponent component = new CategoryComponent(sr, 0.3f, 0.4f);
                 categoryComponents.put(category, component);
             }
         }
@@ -162,6 +162,9 @@ public class ClickGui extends GuiScreen {
     protected void mouseReleased(int mouseX, int mouseY, int mouseButton) {
         dragging = false;
         currentDragging = null;
+        for(CategoryComponent component : categoryComponents.values()) {
+            component.onMouseRelease();
+        }
         super.mouseReleased(mouseX, mouseY, mouseButton);
     }
 
@@ -170,15 +173,13 @@ public class ClickGui extends GuiScreen {
         GuiManager.setEnabledCategories(enabledCategories);
         GuiManager.setCategoryComponents(categoryComponents);
         super.onGuiClosed();
-
     }
 
     @Override
     public void onResize(Minecraft mc, int width, int height) {
-        for(Category category : enabledCategories) {
+        sr = new ScaledResolution(mc); // Update ScaledResolution
+        for (Category category : enabledCategories) {
             CategoryComponent currentComponent = categoryComponents.get(category);
-            // Should keep same relative position on screen but isn't working
-            //currentComponent.onResize(sr);
         }
         mc.displayGuiScreen(new ClickGui());
         super.onResize(mc, width, height);

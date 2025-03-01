@@ -53,7 +53,9 @@ public class PitAddons {
             Minecraft.getMinecraft().displayGuiScreen(new ClickGui());
         }
         for(Module module : moduleManager.getModules()) {
-            if(module.getKey().isKeyDown()) module.toggle();
+            if(module.getKey() != null) {
+                if(module.getKey().isKeyDown()) module.toggle();
+            }
         }
     }
 }

@@ -48,6 +48,14 @@ public abstract class Module {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
     public boolean isEnabled() {
         return this.enabled;
     }
