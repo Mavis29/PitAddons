@@ -10,6 +10,10 @@ import java.lang.annotation.Target;
 public @interface ModuleInfo {
 
     String name();
+
     String description() default "";
+
+    boolean moveable();
+
     Category category();
 }

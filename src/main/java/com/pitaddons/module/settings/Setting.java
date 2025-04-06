@@ -1,40 +1,71 @@
 package com.pitaddons.module.settings;
 
 
+import com.pitaddons.module.Module;
+
 import java.util.ArrayList;
 
 public class Setting {
 
-    private SettingType type;
+    public enum Type {
+        SLIDER,
+        OPTIONS,
+        TOGGLE
+    }
 
+    private Module parent;
+    private Type type;
     private String name;
+    private String currentOption;
+    private boolean enabled;
     private float min;
     private float max;
     private float current;
     private float increment;
     private ArrayList<String> options;
 
-    public Setting(String name, float min, float max, float current, float increment) {
-        this.type = SettingType.SLIDER;
+    public Setting(String name, Module parent, float min, float max, float current, float increment) {
+        this.type = Type.SLIDER;
         this.name = name;
+        this.parent = parent;
         this.min = min;
         this.max = max;
         this.current = current;
         this.increment = increment;
     }
 
-    public Setting(String name) {
-        this.type = SettingType.TOGGLE;
+    public Setting(String name, Module parent, boolean enabled) {
+        this.parent = parent;
+        this.type = Type.TOGGLE;
         this.name = name;
+        this.enabled = enabled;
     }
 
-    public Setting(String name, ArrayList<String> options) {
-        this.type = SettingType.OPTIONS;
+    public Setting(String name, Module parent, ArrayList<String> options, String currentOption) {
+        this.parent = parent;
+        this.type = Type.OPTIONS;
         this.name = name;
         this.options = options;
+        this.currentOption = currentOption;
     }
 
-    public SettingType getType() {
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getCurrentOption() {
+        return currentOption;
+    }
+
+    public void setCurrentOption(String currentOption) {
+        this.currentOption = currentOption;
+    }
+
+    public Type getType() {
         return type;
     }
 
@@ -62,7 +93,15 @@ public class Setting {
         return options;
     }
 
-    public void setType(SettingType type) {
+    public Module getParent() {
+        return parent;
+    }
+
+    public void setParent(Module parent) {
+        this.parent = parent;
+    }
+
+    public void setType(Type type) {
         this.type = type;
     }
 
@@ -90,3 +129,4 @@ public class Setting {
         this.options = options;
     }
 }
+
