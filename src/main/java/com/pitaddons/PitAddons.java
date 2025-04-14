@@ -3,6 +3,7 @@ package com.pitaddons;
 import com.pitaddons.clickgui.ClickGui;
 import com.pitaddons.clickgui.HudPosGui;
 import com.pitaddons.commands.EventListCommand;
+import com.pitaddons.config.PitAddonsConfig;
 import com.pitaddons.module.Module;
 import com.pitaddons.module.ModuleManager;
 import com.pitaddons.module.settings.SettingsManager;
@@ -26,8 +27,8 @@ public class PitAddons {
     public static final String VERSION = "Beta-1.0";
 
     // Declaring moduleManager
-    public static SettingsManager settingsManager = new SettingsManager();
-    public static ModuleManager moduleManager = new ModuleManager();
+    public static SettingsManager settingsManager;
+    public static ModuleManager moduleManager;
 
     private final KeyBinding clickGuiKey = new KeyBinding("Opens the Click GUI", Keyboard.KEY_RSHIFT, "Pit Addons");
     private final KeyBinding hudPosGuiKey = new KeyBinding("Opens the Hud Positions GUI", Keyboard.KEY_K, "Pit Addons"); // temp
@@ -35,11 +36,15 @@ public class PitAddons {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-
+        PitAddonsConfig.getInstance().load(); // Loading Config
+        System.out.println("hey");
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+        settingsManager = new SettingsManager();
+        moduleManager = new ModuleManager();
+
         // Register Keybindings
         for (Module module : moduleManager.getModules()) {
             if (module.getKey() == null) continue;

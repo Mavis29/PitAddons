@@ -60,4 +60,8 @@ public abstract class Component extends Gui {
     public void playSoundButtonPress() {
         sh.playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
     }
+
+    public void onChange() {
+
+    }
 }

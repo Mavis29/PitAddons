@@ -5,6 +5,8 @@ import com.pitaddons.module.settings.Setting;
 import com.pitaddons.util.MathUtil;
 import net.minecraft.util.ResourceLocation;
 
+import java.text.DecimalFormat;
+
 public class SliderComponent extends Component {
 
     Setting setting;
@@ -65,10 +67,12 @@ public class SliderComponent extends Component {
 
         // Drawing numbers
         int textWidthMin = fr.getStringWidth(String.valueOf(min));
-        fr.drawStringWithShadow(String.valueOf(min), x - textWidthMin - 2, y, colorText);
-        fr.drawStringWithShadow(String.valueOf(max), x + bodyWidth + 2, y, colorText);
+        //fr.drawStringWithShadow(String.valueOf(min), x - textWidthMin - 2, y, colorText);
+        //fr.drawStringWithShadow(String.valueOf(max), x + bodyWidth + 2, y, colorText);
 
-        sliderInputComponent.drawComponent(x - textWidthMin - 4, y, String.valueOf(current),
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        sliderInputComponent.drawComponent(x - textWidthMin + 8, y, (df.format(current)),
                 mouseX, mouseY, partialTicks);
 
         super.drawComponent(x, y, mouseX, mouseY, partialTicks);

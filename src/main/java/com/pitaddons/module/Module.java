@@ -90,4 +90,8 @@ public abstract class Module {
     public int[] getHudPos() {
         return new int[]{hudX, hudY};
     }
+
+    public void onSettingSave() {
+        System.out.println("Saving settings: " + this.name);
+    }
 }

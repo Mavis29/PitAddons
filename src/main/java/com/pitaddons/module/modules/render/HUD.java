@@ -1,6 +1,7 @@
 package com.pitaddons.module.modules.render;
 
 import com.pitaddons.PitAddons;
+import com.pitaddons.config.PitAddonsConfig;
 import com.pitaddons.module.Category;
 import com.pitaddons.module.Module;
 import com.pitaddons.module.ModuleInfo;
@@ -38,8 +39,8 @@ public class HUD extends Module {
         green = (int) PitAddons.settingsManager.getSettingByName("Green", this).getCurrent();
         blue = (int) PitAddons.settingsManager.getSettingByName("Blue", this).getCurrent();
         alpha = PitAddons.settingsManager.getSettingByName("Alpha", this).getCurrent();
-        x = 200;
-        y = 200;
+        x = PitAddonsConfig.getInstance().getHudXPos();
+        y = PitAddonsConfig.getInstance().getHudYPos();
         width = 100;
         heightHeader = 10;
 
@@ -78,6 +79,8 @@ public class HUD extends Module {
     public void setHudPos(int hudX, int hudY) {
         this.x = hudX;
         this.y = hudY;
+        PitAddonsConfig.getInstance().setHudXPos(hudX);
+        PitAddonsConfig.getInstance().setHudYPos(hudY);
     }
 
     @Override

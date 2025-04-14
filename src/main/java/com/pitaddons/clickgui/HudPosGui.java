@@ -70,7 +70,7 @@ public class HudPosGui extends GuiScreen {
         for (Module module : moveableModules) {
             int moduleX = modulePositions.get(module)[0];
             int moduleY = modulePositions.get(module)[1];
-            if (!isHovered(mouseX, mouseY, moduleX, moduleY, moduleX + width, moduleY + width)) continue;
+            if (!isHovered(mouseX, mouseY, moduleX, moduleY, moduleX + width, moduleY + height)) continue;
             selectedModule = module;
             offsetX = mouseX - moduleX;
             offsetY = mouseY - moduleY;

@@ -1,5 +1,6 @@
 package com.pitaddons.module;
 
+import com.pitaddons.module.modules.combat.AutoClicker;
 import com.pitaddons.module.modules.player.ToggleSprint;
 import com.pitaddons.module.modules.render.CakeEsp;
 import com.pitaddons.module.modules.render.EventList;
@@ -22,6 +23,7 @@ public class ModuleManager {
         modules.add(new HUD());
         modules.add(new ToggleSprint());
         modules.add(new CakeEsp());
+        modules.add(new AutoClicker());
     }
 
     public void addEnabledModule(Module module) {

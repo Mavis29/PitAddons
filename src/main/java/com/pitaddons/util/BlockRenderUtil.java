@@ -10,7 +10,7 @@ public class BlockRenderUtil {
 
     static Minecraft mc = Minecraft.getMinecraft();
 
-    public static void drawBlockFacesFilled(BlockPos pos, float red, float green, float blue, float alpha, float partialTicks) {
+    public static void drawBlockFacesFilled(BlockPos pos, int red, int green, int blue, float alpha, float partialTicks) {
         EntityPlayerSP player = mc.thePlayer;
         if (player == null) return;
 
@@ -26,7 +26,10 @@ public class BlockRenderUtil {
         GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
         GL11.glBegin(GL11.GL_QUADS);
-        GL11.glColor4f(red, green, blue, alpha);
+        float redRelative = (float) red / 255;
+        float greenRelative = (float) green / 255;
+        float blueRelative = (float) blue / 255;
+        GL11.glColor4f(redRelative, greenRelative, blueRelative, alpha);
 
         double blockX = pos.getX();
         double blockY = pos.getY();

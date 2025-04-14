@@ -196,4 +196,12 @@ public class ClickGui extends GuiScreen {
                 component.handleKeyboardInput();
         }
     }
+
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+        for (Module module : PitAddons.moduleManager.getModules()) {
+            module.onSettingSave();
+        }
+    }
 }

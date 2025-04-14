@@ -80,10 +80,10 @@ public class ModuleComponent extends Component {
             component.drawComponent(x - 30, y + 3, mouseX, mouseY, partialTicks);
         } else if (setting.getType().equals(Setting.Type.SLIDER)) {
             SliderComponent component = sliderComponents.get(setting);
-            component.drawComponent(x - 64, y + 5, mouseX, mouseY, partialTicks);
+            component.drawComponent(x - 40, y + 5, mouseX, mouseY, partialTicks);
         } else if (setting.getType().equals(Setting.Type.OPTIONS)) {
             OptionsComponent component = optionsComponents.get(setting);
-            component.drawComponent(x - 60, y + 1, mouseX, mouseY, partialTicks);
+            component.drawComponent(x - 55, y + 1, mouseX, mouseY, partialTicks);
         }
     }
 
