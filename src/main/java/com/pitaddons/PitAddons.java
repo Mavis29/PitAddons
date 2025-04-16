@@ -6,6 +6,7 @@ import com.pitaddons.commands.EventListCommand;
 import com.pitaddons.config.PitAddonsConfig;
 import com.pitaddons.module.Module;
 import com.pitaddons.module.ModuleManager;
+import com.pitaddons.module.modules.render.notifications.NotificationsManager;
 import com.pitaddons.module.settings.SettingsManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -29,6 +30,7 @@ public class PitAddons {
     // Declaring moduleManager
     public static SettingsManager settingsManager;
     public static ModuleManager moduleManager;
+    public static NotificationsManager notificationsManager;
 
     private final KeyBinding clickGuiKey = new KeyBinding("Opens the Click GUI", Keyboard.KEY_RSHIFT, "Pit Addons");
     private final KeyBinding hudPosGuiKey = new KeyBinding("Opens the Hud Positions GUI", Keyboard.KEY_K, "Pit Addons"); // temp
@@ -44,6 +46,7 @@ public class PitAddons {
     public void init(FMLInitializationEvent event) {
         settingsManager = new SettingsManager();
         moduleManager = new ModuleManager();
+        notificationsManager = new NotificationsManager();
 
         // Register Keybindings
         for (Module module : moduleManager.getModules()) {

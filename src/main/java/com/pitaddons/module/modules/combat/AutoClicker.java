@@ -1,6 +1,7 @@
 package com.pitaddons.module.modules.combat;
 
 import com.pitaddons.PitAddons;
+import com.pitaddons.config.PitAddonsConfig;
 import com.pitaddons.module.Category;
 import com.pitaddons.module.Module;
 import com.pitaddons.module.ModuleInfo;
@@ -16,7 +17,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 @ModuleInfo(
-        name = "AutoClicker",
+        name = "Auto Clicker",
         moveable = false,
         description = "Clicks automatically",
         category = Category.COMBAT
@@ -29,12 +30,18 @@ public class AutoClicker extends Module {
 
     public AutoClicker() {
         setKey(new KeyBinding("Auto Clicker", Keyboard.KEY_NONE, "Pit Addons"));
-        PitAddons.settingsManager.addSetting(new Setting("Min cps", this, 0.0f, 50.0f, 10, 0.1f));
-        PitAddons.settingsManager.addSetting(new Setting("Max cps", this, 0.0f, 50.0f, 14, 0.1f));
-        PitAddons.settingsManager.addSetting(new Setting("Require mouse down", this, true));
-        PitAddons.settingsManager.addSetting(new Setting("BlockHit", this, true));
-        PitAddons.settingsManager.addSetting(new Setting("Require Right click BlockHit", this, true));
-        PitAddons.settingsManager.addSetting(new Setting("Allow mining", this, true));
+        PitAddons.settingsManager.addSetting(new Setting("Min cps", this, 0.0f, 50.0f,
+                (float) PitAddonsConfig.getInstance().getAutoClickerMinCps(), 0.1f));
+        PitAddons.settingsManager.addSetting(new Setting("Max cps", this, 0.0f, 50.0f,
+                (float) (PitAddonsConfig.getInstance().getAutoClickerMinCps()), 0.1f));
+        PitAddons.settingsManager.addSetting(new Setting("Require mouse down", this,
+                PitAddonsConfig.getInstance().isAutoClickerNeedLeftDown()));
+        PitAddons.settingsManager.addSetting(new Setting("BlockHit", this,
+                PitAddonsConfig.getInstance().isAutoClickerBlockHit()));
+        PitAddons.settingsManager.addSetting(new Setting("Require Right click BlockHit", this,
+                PitAddonsConfig.getInstance().isAutoClickerNeedRightDown()));
+        PitAddons.settingsManager.addSetting(new Setting("Allow mining", this,
+                PitAddonsConfig.getInstance().isAutoClickerAllowMining()));
 
         minCps = PitAddons.settingsManager.getSettingByName("Min cps", this).getCurrent();
         maxCps = PitAddons.settingsManager.getSettingByName("Max cps", this).getCurrent();
@@ -105,5 +112,12 @@ public class AutoClicker extends Module {
         blockHit = PitAddons.settingsManager.getSettingByName("BlockHit", this).isEnabled();
         needMouseDownRight = PitAddons.settingsManager.getSettingByName("Require Right click BlockHit", this).isEnabled();
         canMine = PitAddons.settingsManager.getSettingByName("Allow mining", this).isEnabled();
+
+        PitAddonsConfig.getInstance().setAutoClickerMinCps(minCps);
+        PitAddonsConfig.getInstance().setAutoClickerMaxCps(maxCps);
+        PitAddonsConfig.getInstance().setAutoClickerNeedLeftDown(needMouseDown);
+        PitAddonsConfig.getInstance().setAutoClickerBlockHit(blockHit);
+        PitAddonsConfig.getInstance().setAutoClickerNeedRightDown(needMouseDownRight);
+        PitAddonsConfig.getInstance().setAutoClickerAllowMining(canMine);
     }
 }

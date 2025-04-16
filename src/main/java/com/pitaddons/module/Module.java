@@ -1,6 +1,8 @@
 package com.pitaddons.module;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import com.pitaddons.PitAddons;
+import com.pitaddons.module.modules.render.notifications.Notification;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.settings.KeyBinding;
@@ -21,6 +23,7 @@ public abstract class Module {
     private KeyBinding keyBinding;
     private boolean enabled = false;
     private int hudX, hudY;
+    private long lastToggled;
 
     public Module() {
         ModuleInfo info = getClass().getAnnotation(ModuleInfo.class);
@@ -29,20 +32,27 @@ public abstract class Module {
         this.description = info.description();
         this.category = info.category();
         this.moveable = info.moveable();
+        lastToggled = 0;
     }
 
     public void onEnable() {
         mc.thePlayer.addChatMessage(new ChatComponentText(name + " enabled!"));
+        PitAddons.notificationsManager.addNotification(new Notification(
+                new ChatComponentText(ChatFormatting.WHITE + name + ChatFormatting.GREEN + " enabled."), System.currentTimeMillis()));
     }
 
     public void onDisable() {
+        if (lastToggled + 50 < System.currentTimeMillis()) return;
         mc.thePlayer.addChatMessage(new ChatComponentText(name + " disabled!"));
+        PitAddons.notificationsManager.addNotification(new Notification(
+                new ChatComponentText(ChatFormatting.WHITE + name + ChatFormatting.RED + " disabled."), System.currentTimeMillis()));
     }
 
     public void setEnabled(boolean enabled) {
         if (this.enabled == enabled) return;
+        if (lastToggled + 50 > System.currentTimeMillis()) return;
         this.enabled = enabled;
-
+        lastToggled = System.currentTimeMillis();
         if (enabled) {
             MinecraftForge.EVENT_BUS.register(this);
             PitAddons.moduleManager.addEnabledModule(this);

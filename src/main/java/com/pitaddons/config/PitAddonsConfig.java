@@ -32,6 +32,14 @@ public class PitAddonsConfig {
     private Property cakeEspOutlineAlphaProperty;
     private Property cakeEspOutlineWidthProperty;
 
+    // Auto Clicker
+    private Property autoClickerMinCpsProperty;
+    private Property autoClickerMaxCpsProperty;
+    private Property autoClickerNeedLeftDownProperty;
+    private Property autoClickerBlockHitProperty;
+    private Property autoClickerNeedRightDownProperty;
+    private Property autoClickerAllowMiningProperty;
+
 
     // Values
 
@@ -51,6 +59,14 @@ public class PitAddonsConfig {
     private int cakeEspOutlineBlue;
     private double cakeEspOutlineAlpha;
     private double cakeEspOutlineWidth;
+
+    // Auto Clicker
+    private double autoClickerMinCps;
+    private double autoClickerMaxCps;
+    private boolean autoClickerNeedLeftDown;
+    private boolean autoClickerBlockHit;
+    private boolean autoClickerNeedRightDown;
+    private boolean autoClickerAllowMining;
 
     public PitAddonsConfig() {
         load();
@@ -97,6 +113,14 @@ public class PitAddonsConfig {
         cakeEspOutlineAlphaProperty = config.get("CakeESP", "outlineAlpha", 0.5);
         cakeEspOutlineWidthProperty = config.get("CakeESP", "outlineWidth", 0.5);
 
+        // Auto Clicker
+        autoClickerMinCpsProperty = config.get("AutoClicker", "minCps", 10.0);
+        autoClickerMaxCpsProperty = config.get("AutoClicker", "maxCps", 14.0);
+        autoClickerNeedLeftDownProperty = config.get("AutoClicker", "needLeftDown", true);
+        autoClickerBlockHitProperty = config.get("AutoClicker", "blockHit", true);
+        autoClickerNeedRightDownProperty = config.get("AutoClicker", "needRightDown", true);
+        autoClickerAllowMiningProperty = config.get("AutoClicker", "allowMining", true);
+
 
         // HUD
         hudXPos = hudXPosProperty.getInt();
@@ -115,6 +139,14 @@ public class PitAddonsConfig {
         cakeEspOutlineBlue = cakeEspOutlineBlueProperty.getInt();
         cakeEspOutlineAlpha = cakeEspOutlineAlphaProperty.getDouble();
         cakeEspOutlineWidth = cakeEspOutlineWidthProperty.getDouble();
+
+        // Auto Clicker
+        autoClickerMinCps = autoClickerMinCpsProperty.getDouble();
+        autoClickerMaxCps = autoClickerMaxCpsProperty.getDouble();
+        autoClickerNeedLeftDown = autoClickerNeedLeftDownProperty.getBoolean();
+        autoClickerBlockHit = autoClickerBlockHitProperty.getBoolean();
+        autoClickerNeedRightDown = autoClickerNeedRightDownProperty.getBoolean();
+        autoClickerAllowMining = autoClickerAllowMiningProperty.getBoolean();
 
 
         save();
@@ -211,6 +243,43 @@ public class PitAddonsConfig {
         save();
     }
 
+    // Auto Clicker
+    public void setAutoClickerMinCps(double autoClickerMinCps) {
+        this.autoClickerMinCps = autoClickerMinCps;
+        autoClickerMinCpsProperty.set(autoClickerMinCps);
+        save();
+    }
+
+    public void setAutoClickerMaxCps(double autoClickerMaxCps) {
+        this.autoClickerMaxCps = autoClickerMaxCps;
+        autoClickerMaxCpsProperty.set(autoClickerMaxCps);
+        save();
+    }
+
+    public void setAutoClickerNeedLeftDown(boolean autoClickerNeedLeftDown) {
+        this.autoClickerNeedLeftDown = autoClickerNeedLeftDown;
+        autoClickerNeedLeftDownProperty.set(autoClickerNeedLeftDown);
+        save();
+    }
+
+    public void setAutoClickerBlockHit(boolean autoClickerBlockHit) {
+        this.autoClickerBlockHit = autoClickerBlockHit;
+        autoClickerBlockHitProperty.set(autoClickerBlockHit);
+        save();
+    }
+
+    public void setAutoClickerNeedRightDown(boolean autoClickerNeedRightDown) {
+        this.autoClickerNeedRightDown = autoClickerNeedRightDown;
+        autoClickerNeedRightDownProperty.set(autoClickerNeedRightDown);
+        save();
+    }
+
+    public void setAutoClickerAllowMining(boolean autoClickerAllowMining) {
+        this.autoClickerAllowMining = autoClickerAllowMining;
+        autoClickerAllowMiningProperty.set(autoClickerAllowMining);
+        save();
+    }
+
     // GETTERS
 
     // HUD
@@ -265,5 +334,30 @@ public class PitAddonsConfig {
 
     public double getCakeEspOutlineWidth() {
         return cakeEspOutlineWidth;
+    }
+
+    // Auto Clicker
+    public double getAutoClickerMinCps() {
+        return autoClickerMinCps;
+    }
+
+    public double getAutoClickerMaxCps() {
+        return autoClickerMaxCps;
+    }
+
+    public boolean isAutoClickerNeedLeftDown() {
+        return autoClickerNeedLeftDown;
+    }
+
+    public boolean isAutoClickerBlockHit() {
+        return autoClickerBlockHit;
+    }
+
+    public boolean isAutoClickerNeedRightDown() {
+        return autoClickerNeedRightDown;
+    }
+
+    public boolean isAutoClickerAllowMining() {
+        return autoClickerAllowMining;
     }
 }
