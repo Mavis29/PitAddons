@@ -50,7 +50,7 @@ public abstract class Module {
 
     public void setEnabled(boolean enabled) {
         if (this.enabled == enabled) return;
-        if (lastToggled + 50 > System.currentTimeMillis()) return;
+        if (lastToggled + 100 > System.currentTimeMillis()) return;
         this.enabled = enabled;
         lastToggled = System.currentTimeMillis();
         if (enabled) {

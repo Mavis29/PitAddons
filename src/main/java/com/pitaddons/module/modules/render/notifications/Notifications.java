@@ -4,10 +4,12 @@ import com.pitaddons.module.Category;
 import com.pitaddons.module.Module;
 import com.pitaddons.module.ModuleInfo;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,14 +29,16 @@ public class Notifications extends Module {
     private int x, y, startX;
     private int size, sizeY, startY;
     private FontRenderer fr;
+    private LogoRenderer lr;
 
     public Notifications() {
         notifications = new LinkedHashMap<Notification, Integer>();
         lastUpdated = new HashMap<Notification, Long>();
+        lr = new LogoRenderer();
         setKey(new KeyBinding("Toggles Notifications", Keyboard.KEY_NONE, "Pit Addons"));
         x = 2;
-        y = 2;
-        startX = -80;
+        y = 12;
+        startX = -100;
         startY = y + sizeY;
         fr = mc.fontRendererObj;
     }
@@ -51,8 +55,25 @@ public class Notifications extends Module {
     public void onRenderText(RenderGameOverlayEvent.Text event) {
         if (mc.thePlayer == null) return;
         fr = mc.fontRendererObj;
-        int currY = startY;
 
+        lr.render(fr);
+
+        ScaledResolution sr = new ScaledResolution(mc);
+        int scaleFactor = sr.getScaleFactor();
+
+        int scissorX = x * scaleFactor;
+        int scissorY = (mc.displayHeight - (y + sizeY) * scaleFactor);
+
+        GL11.glEnable(GL11.GL_SCISSOR_TEST);
+        GL11.glScissor(scissorX, scissorY, 1000, 1000);
+        renderNotifications();
+        GL11.glDisable(GL11.GL_SCISSOR_TEST);
+
+    }
+
+    private void renderNotifications() {
+
+        int currY = startY;
         Iterator<Notification> iterator = notifications.keySet().iterator();
         while (iterator.hasNext()) {
             Notification notification = iterator.next();
@@ -67,6 +88,7 @@ public class Notifications extends Module {
                 continue;
             }
             currY -= 9;
+
             fr.drawStringWithShadow(notification.getMessage().getFormattedText(), notifications.get(notification), currY, -1);
         }
     }
